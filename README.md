@@ -56,3 +56,11 @@ Plus stock-transfer state machine and shift-close cash-math coverage.
 - Loyalty points earn/redeem rules are an explicit Open Question in the spec (Part C) — `totalSpend` is tracked but points are not auto-awarded.
 - Exchange-type refunds record the refund/stock side; the replacement sale is created as a normal second `POST /api/sales` call from the frontend rather than one atomic combined transaction.
 - The shift-schedule calendar is list-based (add entries, publish) rather than a full drag-and-drop month grid.
+
+## Production
+
+- API: https://shikkulens-api.onrender.com (Render, free plan, Singapore) — defined in `render.yaml`; secrets (`MONGODB_URI`, `CORS_ORIGIN`, `ANTHROPIC_API_KEY`) live in the Render dashboard.
+- Every push to `main` auto-deploys.
+- `.github/workflows/keep-alive.yml` pings `/health` every 10 minutes so the free instance doesn't spin down.
+- Uploaded photos are stored on local disk, which Render's free plan wipes on every deploy/restart.
+- `seed` / `seed:demo` refuse to run with `NODE_ENV=production`; bootstrap an empty database with `npm run create-admin`.
