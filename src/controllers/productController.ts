@@ -125,10 +125,12 @@ router.get(
     const user = await User.findById(req.authUser!.id);
     const canViewCost = Boolean(await resolvePermission(user!, 'viewCost'));
     const skus = await ProductSku.find({ productId: product._id }).sort({ power: 1 });
+    const stock = await Inventory.find({ skuId: { $in: skus.map((s) => s._id) } }, 'skuId branchId qtyOnHand').lean();
     res.json({
       item: product,
       variants,
       skus: skus.map((s) => sanitizeSku(s, canViewCost)),
+      stock,
     });
   }),
 );
