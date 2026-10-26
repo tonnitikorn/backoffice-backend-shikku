@@ -47,6 +47,9 @@ async function wipeDatabase() {
 }
 
 async function main() {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('Refusing to wipe and seed with NODE_ENV=production');
+  }
   await connectDb();
   await wipeDatabase();
 

@@ -195,6 +195,9 @@ const counters = {
 };
 
 async function main() {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('Refusing to generate demo data with NODE_ENV=production');
+  }
   const daysArg = process.argv.indexOf('--days');
   const DAYS = daysArg > -1 ? Number(process.argv[daysArg + 1]) : 30;
 

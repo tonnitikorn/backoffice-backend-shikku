@@ -11,7 +11,8 @@
     "test": "cross-env NODE_ENV=test jest --runInBand",
     "seed": "tsx src/seed/seed.ts",
     "seed:demo": "tsx src/seed/seedDemo.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "create-admin": "tsx src/seed/createAdmin.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.129.0",

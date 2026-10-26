@@ -14,6 +14,9 @@ import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 export function createApp(): Express {
   const app = express();
 
+  // Behind Render's proxy in production: use the client IP from X-Forwarded-For so the login rate limit is per user, not per proxy.
+  if (env.isProduction) app.set('trust proxy', 1);
+
   app.use(helmet());
   app.use(cors({ origin: env.corsOrigin, credentials: true }));
   app.use(compression());
